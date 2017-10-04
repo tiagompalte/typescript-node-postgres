@@ -16,13 +16,17 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-gulp.task('copy-opts', ['clean', 'compile'], function() {
+gulp.task('copy-opts-unit', ['clean', 'compile'], function() {
     return gulp.src('tests/unit/config/mocha.opts')
-        .pipe(gulp.dest('dist/tests/unit/config'))
+        .pipe(gulp.dest('dist/tests/unit/config'));
+});
+
+gulp.task('copy-opts-integration', ['copy-opts-unit'], function() {
+    return gulp.src('tests/unit/config/mocha.opts')
         .pipe(gulp.dest('dist/tests/integration/config'));
 });
 
-gulp.task('copy-migration-config', ['clean', 'compile', 'copy-opts'], function() {
+gulp.task('copy-migration-config', ['clean', 'compile', 'copy-opts-integration'], function() {
     return gulp.src('server/config/config.json')
         .pipe(gulp.dest('dist/server/config'));
 })
