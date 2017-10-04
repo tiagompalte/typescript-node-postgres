@@ -3,9 +3,6 @@ import User from '../../server/modules/User/service';
 const model = require('../../server/models');
 
 describe('Testes Unitários do Controller', () => {
-
-    let email;
-    let _id;
   
     const defaultUser = {
       id: 1,
@@ -34,8 +31,7 @@ describe('Testes Unitários do Controller', () => {
                 email: 'novousuario@email.com',
                 password: '1234'
             };
-            const user = new User();
-            return user.create(novoUsuario)
+            return User.create(novoUsuario)
                 .then(data => {
                     expect(data.dataValues).to.have.all.keys(
                         ['email', 'id', 'name', 'password', 'updatedAt', 'createdAt']
@@ -51,8 +47,7 @@ describe('Testes Unitários do Controller', () => {
                 name: 'Nome Atualizado',
                 email: 'atualizado@email.com'
             };
-            const user = new User();
-            return user.update(1, usuarioAtualizado).then(data => {
+            return User.update(defaultUser.id, usuarioAtualizado).then(data => {
                 expect(data[0]).to.be.equal(1);
             })
         });
@@ -60,20 +55,15 @@ describe('Testes Unitários do Controller', () => {
 
     describe('Método GET Users', () => {
         it('Deve retornar uma lista com todos os Usuários', () => {
-            const user = new User();
-            return user.getAll().then(data => {
+            return User.getAll().then(data => {
                 expect(data).to.be.an('array');
-                expect(data[0]).to.have.all.keys(
-                    ['email', 'id', 'name', 'password']
-                )
             })
         });
     });
 
     describe('Método getById', () => {
         it('Retornar um usuário de acordo com o ID passado', () => {
-            const user = new User();
-            return user.getById(defaultUser.id).then(data => {
+            return User.getById(defaultUser.id).then(data => {
                 expect(data).to.have.all.keys(
                   ['email', 'id', 'name', 'password']
                 )
@@ -83,8 +73,7 @@ describe('Testes Unitários do Controller', () => {
     
     describe('Método getByEmail', () => {
         it('Retornar um usuário de acordo com o EMAIL passado', () => {
-            const user = new User();
-            return user.getByEmail(defaultUser.email).then(data => {
+            return User.getByEmail(defaultUser.email).then(data => {
               expect(data).to.have.all.keys(
                 ['email', 'id', 'name', 'password']
               )
@@ -94,8 +83,7 @@ describe('Testes Unitários do Controller', () => {
 
     describe('Método DELETE User', () => {
         it('Deve deletar um Usuários', () => {
-            const user = new User();
-            return user.delete(1).then(data => {
+            return User.delete(defaultUser.id).then(data => {
                 expect(data).to.be.equal(1);
             })
         });
