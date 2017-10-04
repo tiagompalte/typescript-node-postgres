@@ -7,7 +7,7 @@ var tsProject = ts.createProject('tsconfig.json');
 gulp.task('compile', ['clean'], function() {
     return tsProject.src()
         .pipe(tsProject())
-        .js.pipe(gulp.dest('dist'))
+        .js.pipe(gulp.dest('dist'));
 })
 
 gulp.task('clean', function() {
@@ -19,7 +19,17 @@ gulp.task('clean', function() {
 gulp.task('copy-opts', ['clean', 'compile'], function() {
     return gulp.src('tests/unit/config/mocha.opts')
         .pipe(gulp.dest('dist/tests/unit/config'))
-        .pipe(gulp.dest('dist/tests/integration/config'))
+        .pipe(gulp.dest('dist/tests/integration/config'));
 });
 
-gulp.task('default', ['copy-opts']);
+gulp.task('copy-migration-config', ['clean', 'compile', 'copy-opts'], function() {
+    return gulp.src('server/config/config.json')
+        .pipe(gulp.dest('dist/server/config'));
+})
+
+gulp.task('build', ['copy-migration-config'], function() {
+    return gulp.src('server/migrations/*')
+        .pipe(gulp.dest('dist/server/migrations'));
+})
+
+gulp.task('default', ['build']);

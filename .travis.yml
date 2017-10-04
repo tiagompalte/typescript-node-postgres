@@ -1,0 +1,24 @@
+sudo: required
+language: node_js
+notifications: 
+  email: tiagompalte@hotmail.com
+node_js:
+- 6.11.1
+services:
+- postgresql
+env:
+  global:
+  - NODE_ENV: test
+  - TRAVIS: true
+addons:
+  postgresql: '9.3'
+before_script:
+- psql -c 'create database ts_api_test;' -U tiagopalte
+- npm i -g sequelize-cli gulp-cli
+- cd server/
+- sequelize db:migrate --env test
+- npm install
+- gulp
+script:
+- npm run unit_test
+- npm run integration-test
