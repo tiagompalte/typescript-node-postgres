@@ -10,7 +10,6 @@ class User implements IUser {
 
     constructor(){}
     
-
     create(user: any) {
         return model.User.create(user);
     }
@@ -39,7 +38,9 @@ class User implements IUser {
     update(id: number, user: any) {
         return model.User.update(user, {
             where: {id},
-            fields: ['name', 'email', 'password']
+            fields: ['name', 'email', 'password'],
+            hooks: true,
+            individualHooks: true
         });
     }
 
