@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import User from '../User/service';
-import Handlers from '../../api/responses/Handlers';
+import Handlers from '../../api/responses/handlers';
 
 class TokenRoutes {
 
