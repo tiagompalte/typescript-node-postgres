@@ -9,7 +9,9 @@ class UserRoutes {
     }
 
     index(req: Request, res: Response) {
-        return UserCtrl.getAll(req, res);
+        let user = UserCtrl.getAll(req, res);
+        console.log(user);
+        return user;
     }
 
     create(req: Request, res: Response) {
