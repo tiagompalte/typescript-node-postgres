@@ -20,5 +20,5 @@ before_script:
 - npm install
 - gulp
 script:
-- npm run unit_test
+- npm run unit-test
 - npm run integration-test
