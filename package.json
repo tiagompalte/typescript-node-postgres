@@ -4,12 +4,13 @@
     "description": "Curso Udemy TypeScript, Node e Postgres",
     "main": "server/server.ts",
     "scripts": {
-        "start": "PORT=5000 NODE_ENV=development ./node_modules/.bin/ts-node ./server/server.ts",
+        "start": "NODE_ENV=development ./node_modules/.bin/ts-node ./server/server.ts",
         "builded": "NODE_ENV=production node ./dist/server/server.js",
         "unit-test": "NODE_ENV=test mocha --opts dist/tests/unit/config/mocha.opts ./dist/tests/unit/unit.test.js",
         "integration-test": "NODE_ENV=test mocha --opts dist/tests/integration/config/mocha.opts ./dist/tests/integration/integration.test.js",
         "coverage": "nyc --reporter=html npm run integration-test",
-        "unit-coverage": "nyc --reporter=html npm run unit-test"
+        "unit-coverage": "nyc --reporter=html npm run unit-test",
+        "gulp": "node_modules/.bin/gulp"
     },
     "repository": {
         "type": "git",
